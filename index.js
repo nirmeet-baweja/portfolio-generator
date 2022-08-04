@@ -35,16 +35,12 @@ inquirer
     },
   ])
   .then((answer) => {
-    console.log(
-      "Hello",
-      answer.first_name,
-      "Location",
-      answer.location,
-      "Bio",
-      answer.bio,
-      "LinkedIn",
-      answer.linkedin_URL,
-      "GitHub",
-      answer.github_URL
-    );
+    const htmlTemplate = `
+      Hello ${answer.first_name}
+      Location: ${answer.location}
+      Bio: ${answer.bio}
+      LinkedIn: ${answer.linkedin_URL}
+      GitHub: ${answer.github_URL}`;
+
+    writeHTMLTemplate(answer.first_name, htmlTemplate);
   });
