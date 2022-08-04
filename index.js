@@ -24,29 +24,23 @@ inquirer
       message: "Please share a short bio about yourself.",
     },
     {
-      name: "linkedin_URL",
+      name: "linkedinUrl",
       type: "input",
       message: "What is your LinkedIn URL?",
     },
     {
-      name: "github_URL",
+      name: "githubUrl",
       type: "input",
       message: "What is your GitHub URL?",
     },
   ])
   .then((answer) => {
-    const htmlTemplate = `
-      Hello ${answer.first_name}
-      Location: ${answer.location}
-      Bio: ${answer.bio}
-      LinkedIn: ${answer.linkedin_URL}
-      GitHub: ${answer.github_URL}`;
-
+    const htmlTemplate = generateTemplate(answer);
     writeHTMLTemplate(answer.first_name, htmlTemplate);
   });
-
-const portfolioTemplate = `
-  <!DOCTYPE html>
+const generateTemplate = (answer) => {
+  const portfolioTemplate = `
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,13 +49,15 @@ const portfolioTemplate = `
     <title>Mini Project: Portfolio Generator</title>
 </head>
 <body>
-    <h1 id="fullName">${Your name}</h1>
-    <p id="locCityCountry">&{Your location}</p>
-    <p id="bioGitHub">&{Your GitHub bio}</p>
+    <h1 id="fullName">${answer.first_name}</h1>
+    <p id="locCityCountry">${answer.location}</p>
+    <p id="bioGitHub">${answer.bio}</p>
     <h2>Personal Links</h2>
     <ul>
-        <li><a id="urlLinkedIn" href="">${Your LinkedIn URL}</a></li>
-        <li><a id="urlGitHub" href="">${Your GitHub ULR}</a></li>
+        <li><a id="urlLinkedIn" href="">${answer.linkedinUrl}</a></li>
+        <li><a id="urlGitHub" href="">${answer.githubUrl}</a></li>
     </ul>
 </body>
 </html>`;
+  return portfolioTemplate;
+};
